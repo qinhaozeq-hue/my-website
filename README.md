@@ -1,2 +1,108 @@
-# my-website
-A static website created with Acode
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>户籍信息展示</title>
+
+<style>
+    body {
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        background: #f7f7f7;
+        color: #333;
+        touch-action: none;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: auto;
+        background: #fff;
+        padding: 20px;
+        line-height: 1.8;
+        font-size: 22px;
+    }
+
+    .title {
+        text-align: center;
+        font-weight: bold;
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+
+    .block {
+        margin-bottom: 20px;
+        white-space: pre-line;
+    }
+</style>
+</head>
+<body>
+
+<div class="container" id="content">
+<div class="title">户籍信息说明</div>
+
+
+
+<div class="block">
+【同户人员信息】
+   不可滑动请使用双指缩放
+
+姓名：陈靖文
+身份证号码：320324201206170404
+出生年月：2012年06月17日
+其他：女 江苏省徐州市睢宁县  生肖:龙 星座:双子座 壬辰年 四月廿八 
+出生地：江苏省徐州市睢宁县
+真户籍地址：江苏省睢宁县古邳镇陈平楼195号
+同户人：赵祥,男,320324197006091593,1970年06月09日
+------------------
+陈志文,男,320324199704081615,1997年04月08日
+📞 电话:13201101858
+------------------
+陈跟艳,女,320324198210051569,1982年10月05日
+------------------
+张月华,女,320324195706071623,1957年06月07日
+------------------
+陈艳群,女,320324198908071561,1989年08月07日
+📞 电话:15873155204
+------------------
+陈靖文,女,320324201206170404,2012年06月17日
+</div>
+
+<div class="block">
+备注说明：  
+本页面仅用于个人信息展示与本地查看，不用于任何网络传输。
+</div>
+
+</div>
+
+<script>
+let startDistance = null;
+let startFontSize = 22;
+const content = document.getElementById("content");
+
+function distance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+document.addEventListener("touchmove", e => {
+    if (e.touches.length === 2) {
+        e.preventDefault();
+        const d = distance(e.touches);
+        if (!startDistance) startDistance = d;
+        const scale = d / startDistance;
+        content.style.fontSize = (startFontSize * scale) + "px";
+    }
+}, { passive: false });
+
+document.addEventListener("touchend", () => {
+    startFontSize = parseFloat(getComputedStyle(content).fontSize);
+    startDistance = null;
+});
+</script>
+
+</body>
+</html
